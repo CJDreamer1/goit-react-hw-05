@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+}
+.link {
+  text-decoration: none;
+  color: black;
+  font-weight: 800;
+  font-family: sans-serif;
+}
+.active {
+  color: orange;
+  text-decoration: underline;
+}
