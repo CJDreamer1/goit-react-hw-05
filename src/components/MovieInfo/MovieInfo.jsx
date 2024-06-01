@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function PaymentInfo({
+export default function MovieInfo({
   movie: { id, title, overview, release_date, poster_path },
 }) {
   return (

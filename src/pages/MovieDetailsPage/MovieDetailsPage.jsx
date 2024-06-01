@@ -7,7 +7,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { getMovieById } from "../../../movies-api";
-import PaymentInfo from "../../components/PaymentInfo/PaymentInfo";
+import MovieInfo from "../../components/MovieInfo/MovieInfo";
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
@@ -35,7 +35,7 @@ export default function MovieDetailsPage() {
         </b>
       </p>
       {loading && <b>Loading movie info...</b>}
-      {movie && <PaymentInfo movie={movie} />}
+      {movie && <MovieInfo movie={movie} />}
       <ul>
         <li>
           <NavLink to="cast">Cast</NavLink>
