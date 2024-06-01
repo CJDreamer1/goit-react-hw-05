@@ -1,11 +1,11 @@
-import PaymentCard from "../PaymentCard/PaymentCard";
+import MovieCard from "../MovieCard/MovieCard";
 
-export default function MovieList({ payments }) {
+export default function MovieList({ movies }) {
   return (
     <ul>
-      {payments.map((payment) => (
-        <li key={payment.id}>
-          <PaymentCard payment={payment} />
+      {movies.map((movie) => (
+        <li key={movie.id}>
+          <MovieCard movie={movie} />
         </li>
       ))}
     </ul>

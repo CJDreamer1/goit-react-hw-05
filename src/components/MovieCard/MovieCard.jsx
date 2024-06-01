@@ -1,11 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 
-export default function PaymentCard({ payment: { id, title } }) {
+export default function MovieCard({ movie: { id, title } }) {
   const location = useLocation();
 
   return (
     <div>
-      <Link to={`/MoviesPage/${id}`} state={location}>
+      <Link to={`/movie/${id}`} state={{ from: location }}>
         {title}
       </Link>
     </div>

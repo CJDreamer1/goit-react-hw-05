@@ -1,38 +1,56 @@
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import MovieList from "../../components/MovieList/MovieList";
-import { useEffect, useState } from "react";
-import { getPayments } from "../../../movies-api";
-// import OwnerFilter from "../../components/OwnerFilter/OwnerFilter";
-// import { useSearchParams } from "react-router-dom";
+import { searchMovies } from "../../../movies-api";
 
 export default function MoviesPage() {
-  const [payments, setPayments] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState("");
 
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const ownerFilter = searchParams.get("owner") ?? "";
+  const [searchParams, setSearchParams] = useSearchParams(); // Отримання параметрів з URL
 
-  // const changeOwnerFilter = (newFilter) => {
-  //   searchParams.set("owner", newFilter);
-  //   setSearchParams(searchParams);
-  // };
-
+  // Отримання значення параметра "searchTerm" з URL при завантаженні сторінки
   useEffect(() => {
-    setLoading(true);
-    getPayments()
-      .then((data) => setPayments(data))
-      .finally(() => setLoading(false));
-  }, []);
+    const query = searchParams.get("query") ?? "";
+    if (query) {
+      setQuery(query);
+    }
+  }, [searchParams]);
 
-  // const filteredPayments = payments.filter((payment) =>
-  //   payment.cardOwner.toLowerCase().includes(ownerFilter.toLowerCase())
-  // );
+  const handleSearch = () => {
+    if (query.trim() === "") {
+      alert("Please enter a search term");
+      return;
+    }
+
+    setLoading(true);
+    searchMovies(query)
+      .then((data) => {
+        setMovies(data);
+        // Оновлення параметрів у стрічці запиту браузера з використанням пошукового терміну
+        setSearchParams({ query: query });
+      })
+      .catch((error) => {
+        console.error("Failed to fetch movies:", error);
+      })
+      .finally(() => setLoading(false));
+  };
 
   return (
     <div>
-      <h2>Tranding today</h2>
-      {/* <OwnerFilter filter={ownerFilter} onSearch={changeOwnerFilter} /> */}
-      {loading && <b>Loading payments...</b>}
-      {payments.length > 0 && <MovieList payments={payments} />}
+      <h2>Search film by name</h2>
+      <div>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Enter movie title..."
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
+      {loading && <b>Loading movies...</b>}
+      {movies.length > 0 && <MovieList movies={movies} />}
     </div>
   );
 }

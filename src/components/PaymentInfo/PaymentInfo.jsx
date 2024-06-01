@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+
 export default function PaymentInfo({
-  payment: { id, title, overview, release_date, poster_path },
+  movie: { id, title, overview, release_date, poster_path },
 }) {
   return (
     <div>

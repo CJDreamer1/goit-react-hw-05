@@ -6,26 +6,26 @@ import {
   Link,
   useLocation,
 } from "react-router-dom";
-import { getPaymentById } from "../../../movies-api";
+import { getMovieById } from "../../../movies-api";
 import PaymentInfo from "../../components/PaymentInfo/PaymentInfo";
 
 export default function MovieDetailsPage() {
-  const { paymentId } = useParams();
-  const [payment, setPayment] = useState(null);
+  const { movieId } = useParams();
+  const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const location = useLocation();
-  const backLinkRef = useRef(location.state ?? "/MoviesPage");
+  const backLinkRef = useRef(location.state?.from || "/MoviesPage");
 
   useEffect(() => {
     setLoading(true);
-    getPaymentById(paymentId)
-      .then((data) => setPayment(data))
+    getMovieById(movieId)
+      .then((data) => setMovie(data))
       .catch((error) => {
-        console.error("Failed to fetch payment data:", error);
+        console.error("Failed to fetch movie data:", error);
       })
       .finally(() => setLoading(false));
-  }, [paymentId]);
+  }, [movieId]);
 
   return (
     <div>
@@ -34,18 +34,18 @@ export default function MovieDetailsPage() {
           <Link to={backLinkRef.current}>Go back</Link>
         </b>
       </p>
-      {loading && <b>Loading payment info...</b>}
-      {payment && <PaymentInfo payment={payment} />}
+      {loading && <b>Loading movie info...</b>}
+      {movie && <PaymentInfo movie={movie} />}
       <ul>
         <li>
-          <NavLink to="bank">Bank info</NavLink>
+          <NavLink to="cast">Cast</NavLink>
         </li>
         <li>
-          <NavLink to="receipt">Receipt</NavLink>
+          <NavLink to="Reviews">Reviews</NavLink>
         </li>
       </ul>
       <Suspense fallback={<div>Loading sub component...</div>}>
-        <Outlet />
+        <Outlet context={{ movieId }} />
       </Suspense>
     </div>
   );

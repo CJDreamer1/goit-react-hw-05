@@ -16,23 +16,8 @@ export default function Navigation() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="MovieDetails" className={getLinkClass}>
-            MovieDetails
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="MoviesPage" className={getLinkClass}>
-            MoviesPage
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/profile" className={getLinkClass}>
-            Profile
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/payment" className={getLinkClass}>
-            Payments
+          <NavLink to="/movies" className={getLinkClass}>
+            Movies
           </NavLink>
         </li>
       </ul>

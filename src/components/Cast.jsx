@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
-import { getCast } from "../../movies-api";
+import { getMovieCast } from "../../movies-api";
+import { useOutletContext } from "react-router-dom";
 
-export default function BankInfo(paymentId) {
+export default function Cast() {
+  const { movieId } = useOutletContext();
   const [cast, setCast] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    getCast(paymentId)
-      .then((data) => setCast(data))
+    getMovieCast(movieId)
+      .then((data) => setCast(data.cast))
       .catch((error) => {
         console.error("Failed to fetch cast data:", error);
       })
       .finally(() => setLoading(false));
-  }, [paymentId]);
+  }, [movieId]);
 
   return (
     <div>
