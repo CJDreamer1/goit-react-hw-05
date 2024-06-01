@@ -34,7 +34,6 @@ export default function MovieDetailsPage() {
           <Link to={backLinkRef.current}>Go back</Link>
         </b>
       </p>
-      <h2>PaymentDetails {paymentId}</h2>
       {loading && <b>Loading payment info...</b>}
       {payment && <PaymentInfo payment={payment} />}
       <ul>
