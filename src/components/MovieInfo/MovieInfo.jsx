@@ -1,25 +1,23 @@
-import { Link } from "react-router-dom";
-
 export default function MovieInfo({
-  movie: { id, title, overview, release_date, poster_path },
+  movie: { title, overview, release_date, poster_path, vote_average, genres },
 }) {
+  const percentage = Math.round((vote_average / 10) * 100);
+  const genresList = genres.map((genre) => genre.name).join(", ");
   return (
     <div>
       <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} alt={title} />
       <p>
-        <b>Title:</b> {title}
+        <b>Title:</b> {title} ({release_date})
       </p>
       <p>
-        <b>Release Date:</b> {release_date}
+        <b>User Score:</b> {percentage + "%"}
       </p>
       <p>
         <b>Description:</b> {overview}
       </p>
-      <b>
-        <Link to={`/MoviesPage/${id}`} state={location}>
-          Details
-        </Link>
-      </b>
+      <p>
+        <b>Genres:</b> {genresList}
+      </p>
     </div>
   );
 }
