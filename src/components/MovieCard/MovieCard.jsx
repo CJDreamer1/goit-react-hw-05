@@ -5,7 +5,7 @@ export default function MovieCard({ movie: { id, title } }) {
 
   return (
     <div>
-      <Link to={`/movie/${id}`} state={{ from: location }}>
+      <Link to={`/movies/${id}`} state={{ from: location }}>
         {title}
       </Link>
     </div>

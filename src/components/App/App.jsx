@@ -23,7 +23,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="movies" element={<MoviesPage />} />
-          <Route path="movie/:movieId" element={<MovieDetailsPage />}>
+          <Route path="movies/:movieId" element={<MovieDetailsPage />}>
             <Route path="cast" element={<Cast />} />
             <Route path="Reviews" element={<Reviews />} />
           </Route>
